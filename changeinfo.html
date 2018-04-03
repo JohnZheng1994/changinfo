@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>信息切换</title>
+    <style>
+        *{margin:0;padding:0;}
+        body{font-size:14px;}
+        ul{list-style:none;}
+        #container{width:1000px;margin:150px auto;}
+        #head{border-bottom:3px solid #f60;height:30px;}
+        #head li{font-weight:bold;float:left;height:30px;width:80px;text-align:center;line-height:30px;}
+        #head li:hover{cursor:pointer;}
+        #head .act{background:#f60;color:#fff;}
+        #listcontent li{font-size:16px;line-height:30px;height:30px;}
+        a{text-decoration:none;}
+        a:hover{text-decoration:underline;}
+	    #tips{padding: 5px; position: absolute;left:0;top:0;width: 400px;border: 2px solid #FF7700; background-color: white;display:none;}
+	    #tips li{list-style:none;font-size:16px;height:30px;line-height:30px;}
+	    #tips li.col{width:180px;height: 30px; float: left;line-height: 30px; border-bottom: 1px solid #CCC;}
+    </style>
+    <script type="text/javascript" src="datas.js"></script>
+    <script>
+        window.onload = function () {
+            //获取元素
+            var ul = document.getElementById("head");            var con = document.getElementById("container");            var listcont = document.getElementById("listcontent");            var tip = document.getElementById("tips");            var tipcont = document.getElementById("tipscontent");            //获取标题头部内容            for (var i = 0; i < data.length; i++) {
+                ul.innerHTML += "<li>" + data[i].name + "</li>"
+            }            //定义默认act            var lis = ul.getElementsByTagName("li");
+            lis[0].className = "act";            //点击切换            for (var i = 0; i < lis.length; i++) {
+                lis[i].index = i;
+                lis[i].onclick = function () {
+                    for (var j = 0; j < lis.length; j++) {
+                        lis[j].className = "";
+                        listcont.innerHTML = "";
+                        tipcont.innerHTML = "";
+                    }
+                    this.className = "act";
+                    fun(data[this.index]);
+
+                }
+            }            fun(data[0]);            function fun(da) {
+                for(var i=0;i<da.list.length;i++){
+                    var oul = document.createElement("ul");
+                    var oli = document.createElement("li");
+                    var oa = document.createElement("a");
+                    oa.innerHTML = da.list[i].title;
+                    oa.href = "javascript:";
+                    oli.appendChild(oa);
+                    oul.appendChild(oli);
+                    listcont.appendChild(oul);
+                    oa.index = i;
+                    var h4 = document.createElement('h4');
+                    var lis1 = document.createElement('li');
+                    lis1.className = 'col';
+                    var lis2 = document.createElement('li');
+                    lis2.className = 'col';
+                    var lis3 = document.createElement('li');
+                    lis3.className = 'col';
+                    var lis4 = document.createElement('li');
+                    lis4.className = 'col';
+                    var lis5 = document.createElement('li');
+                    lis5.className = 'col';
+                    var lis6 = document.createElement('li');
+                    lis6.className = 'col';                    oa.onmouseover = function () {
+                        clearTimeout();
+                        tip.style.display = "block";
+                        tip.style.left = con.offsetLeft + this.offsetWidth + 10 + "px";
+                        tip.style.top = this.offsetTop + "px";
+                        h4.innerHTML = da.list[this.index].company;
+                        lis1.innerHTML = da.list[this.index].recruitingNumbers;
+                        lis2.innerHTML = da.list[this.index].workingLocation;
+                        lis3.innerHTML = da.list[this.index].workExperience;
+                        lis4.innerHTML = da.list[this.index].education;
+                        lis5.innerHTML = da.list[this.index].wage;
+                        lis6.innerHTML = da.list[this.index].addDate;
+                        tip.appendChild(h4);
+                        tip.appendChild(lis1);
+                        tip.appendChild(lis2);
+                        tip.appendChild(lis3);
+                        tip.appendChild(lis4);
+                        tip.appendChild(lis5);
+                        tip.appendChild(lis6);
+                    }                                        oa.onmouseout = function () {
+                        
+                                tip.style.display = "none";
+                              
+                   
+                        
+                    }
+                    }            }        }
+    </script>
+</head>
+
+
+<body>
+    <div id="container">
+        <ul id="head"></ul>
+        <div id="listcontent"></div>
+    </div>
+    <div id="tips">
+        <span id="arrow"></span>
+        <div id="tipscontent"></div>
+    </div>
+</body>
+</html>
